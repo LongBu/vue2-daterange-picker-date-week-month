@@ -1,3 +1,3 @@
-import DateRangePicker from './components/DateRangePicker.vue'
+import DateRangePickerDateWeekMonth from './components/DateRangePicker.vue'
 
 export default DateRangePickerDateWeekMonth

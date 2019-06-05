@@ -67,15 +67,7 @@
       showWeekNumbers: {
         type: Boolean,
         default: false,
-      },
-      wholeWeekRange:{
-        type: Boolean,
-        default: false,
-      },
-      wholeMonthRange:{
-        type: Boolean,
-        default: false,
-      },
+      }
     },
     methods: {
       dayClass (date) {

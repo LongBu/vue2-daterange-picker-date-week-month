@@ -1,18 +1,5 @@
 <template>
-    <!-- <div style="position: relative; display: inline-block;"> -->
-        <!-- <div class="form-control" @click="togglePicker">
-            <slot
-                    name="input"
-                    :startDate="start"
-                    :endDate="end"
-                    :ranges="ranges"
-            >
-                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-                <span>{{rangeText}}</span>
-                <b class="caret"></b>
-            </slot>
-        </div> -->
-        <!-- <transition name="slide-fade" mode="out-in"> -->
+
             <div style="position: relative; display: inline-block;"
                     class="daterangepicker dropdown-menu ltr"
                     :class="pickerStyles"
@@ -43,8 +30,7 @@
                                       @change-month="changeLeftMonth"
                                       @dateClick="dateClick" @hoverDate="hoverDate"
                                       :showWeekNumbers="showWeekNumbers"
-                                      :wholeWeekRange="wholeWeekRange"
-                                      :wholeMonthRange="wholeMonthRange"
+                                      :rangeMode="rangeMode"
                             ></calendar>
                         </div>
                         <calendar-time v-if="timePicker"
@@ -55,35 +41,7 @@
                                        :current-time="start"
                         />
                     </div>
-
-                    <!-- <div class="drp-calendar col right" v-if="!singleDatePicker">
-                        <div class="daterangepicker_input" v-if="false">
-                            <input class="input-mini form-control" type="text" name="daterangepicker_end"
-                                   :value="endText"/>
-                            <i class="fa fa-calendar glyphicon glyphicon-calendar"></i>
-                        </div>
-                        <div class="calendar-table">
-                            <calendar :monthDate="nextMonthDate"
-                                      :locale="locale"
-                                      :start="start" :end="end"
-                                      :minDate="min" :maxDate="max"
-                                      :show-dropdowns="showDropdowns"
-                                      @nextMonth="nextMonth" @prevMonth="prevMonth"
-                                      @change-month="changeRightMonth"
-                                      @dateClick="dateClick" @hoverDate="hoverDate"
-                                      :showWeekNumbers="showWeekNumbers"
-                            ></calendar>
-                        </div>
-                        <calendar-time v-if="timePicker"
-                                       @update="onUpdateEndTime"
-                                       :miniute-increment="timePickerIncrement"
-                                       :hour24="timePicker24Hour"
-                                       :second-picker="timePickerSeconds"
-                                       :current-time="end"
-                        />
-                    </div> -->
                 </div>
-
                 <div class="drp-buttons" v-if="!autoApply">
                     <span class="drp-selected">{{rangeText}}</span>
                     <button
@@ -102,8 +60,7 @@
                 </div>
 
             </div>
-        <!-- </transition> -->
-    <!-- </div> -->
+
 </template>
 
 <script>
@@ -172,13 +129,10 @@
           return {}
         },
       },
-      wholeWeekRange:{
-        type: Boolean,
-        default: false,
-      },
-      wholeMonthRange:{
-        type: Boolean,
-        default: false,
+      rangeMode:{
+        type: String,
+        default: "day"
+        // "day, week, month"
       },
       dateRange: { // for v-model
         default: null,
@@ -501,7 +455,7 @@
                 &.show-weeknumbers {
                     min-width: 250px + $week-width;
                 }
-            }
+            } 
 
             @media screen and (min-width: 339px) {
                 min-width: auto;

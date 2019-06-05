@@ -67,6 +67,12 @@
       showWeekNumbers: {
         type: Boolean,
         default: false,
+      },
+
+      rangeMode:{
+        type: String,
+        default: "day"
+        // "day, week, month"
       }
     },
     methods: {
@@ -79,7 +85,7 @@
         end.setHours(0, 0, 0, 0)
 
         //Attain extrema of week or month from the start:date
-        const minExt =  moment(start).startOf('week');
+        const minExt =  moment(start).startOf('week'); 
         const maxExt =  moment(start).endOf('week');
         const minExtMth =  moment(start).startOf('month');
         const maxExtMth =  moment(start).endOf('month');
@@ -87,10 +93,10 @@
           off: date.month() !== this.month,
           weekend: date.isoWeekday() > 5,
           today: dt.setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0),
-          active: !this.wholeWeekRange && !this.wholeMonthRange && (dt.setHours(0, 0, 0, 0) == new Date(this.start).setHours(0, 0, 0, 0) || dt.setHours(0, 0, 0, 0) == new Date(this.end).setHours(0, 0, 0, 0)),
-          'in-range': (!this.wholeWeekRange && !this.wholeMonthRange && (dt >= start && dt <= end)) || this.wholeWeekRange && (dt >= minExt && dt <= maxExt) || this.wholeMonthRange && (dt >= minExtMth && dt <= maxExtMth),
-          'start-date': !this.wholeWeekRange && !this.wholeMonthRange && dt.getTime() === start.getTime(),
-          'end-date': !this.wholeWeekRange && !this.wholeMonthRange && dt.getTime() === end.getTime(),
+          active: this.rangeMode === "day" && (dt.setHours(0, 0, 0, 0) == new Date(this.start).setHours(0, 0, 0, 0) || dt.setHours(0, 0, 0, 0) == new Date(this.end).setHours(0, 0, 0, 0)),
+          'in-range': (this.rangeMode === "day" && (dt >= start && dt <= end)) || (this.rangeMode === "week") && (dt >= minExt && dt <= maxExt) || (this.rangeMode === "month")  && (dt >= minExtMth && dt <= maxExtMth),
+          'start-date': this.rangeMode === "day" && dt.getTime() === start.getTime(),
+          'end-date': this.rangeMode === "day" && dt.getTime() === end.getTime(),
           disabled: (this.minDate && moment(dt).startOf("day").isBefore(moment(this.minDate).startOf("day")))
             || (this.maxDate && moment(dt).startOf("day").isAfter(moment(this.maxDate).startOf("day"))),
         }

@@ -189,10 +189,10 @@
 }
 
 .daterangepicker td.in-range {
-  background-color: #ebf4f8;
+  background-color: #C15F4A;
   border-color: transparent;
-  color: #000;
-  border-radius: 0;
+  color: #FFF;
+  border-radius: 20px;
 }
 
 .daterangepicker td.start-date {

@@ -238,6 +238,9 @@
         if (newIndex){
           this.month = newIndex
         }
+        else{
+          this.month = 0
+        }
       }
     }
   }

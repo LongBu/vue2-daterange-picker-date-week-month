@@ -1,7 +1,7 @@
 <template>
 
             <div style="position: relative; display: inline-block;"
-                    class="daterangepicker dropdown-menu ltr"
+                    class="daterangepickerInline dropdown-menu ltr"
                     :class="pickerStyles"
                     v-if="open"
                     v-on-clickaway="clickAway"
@@ -407,7 +407,7 @@
         width: 100%;
     }
 
-    .daterangepicker {
+    .daterangepickerInline {
         flex-direction: column;
         display: flex;
         width: auto;
@@ -455,7 +455,7 @@
                 &.show-weeknumbers {
                     min-width: 250px + $week-width;
                 }
-            } 
+            }
 
             @media screen and (min-width: 339px) {
                 min-width: auto;
@@ -490,7 +490,7 @@
         }
     }
 
-    div.daterangepicker.opensleft {
+    div.daterangepickerInline.opensleft {
         top: 35px;
         right: 10px;
         left: auto;
@@ -504,7 +504,7 @@
         // transform: translate(-50%, 0);
     }
 
-    div.daterangepicker.opensright {
+    div.daterangepickerInline.opensright {
         top: 35px;
         left: 10px;
         right: auto;

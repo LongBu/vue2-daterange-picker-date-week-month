@@ -4,7 +4,6 @@
                     class="daterangepickerInline dropdown-menu ltr"
                     :class="pickerStyles"
                     v-if="open"
-                    v-on-clickaway="clickAway"
             >
                 <div class="calendars row no-gutters">
                     <slot name="ranges" v-if="ranges !== false">
@@ -47,7 +46,6 @@
                     <button
                             class="cancelBtn btn btn-sm btn-default"
                             type="button"
-                            @click="clickAway"
                     >{{locale.cancelLabel}}
                     </button>
                     <button
@@ -69,11 +67,9 @@
   import CalendarTime from './CalendarTime'
   import CalendarRanges from './CalendarRanges'
   import {nextMonth, prevMonth} from './util'
-  import {mixin as clickaway} from 'vue-clickaway'
 
   export default {
     components: {Calendar, CalendarTime, CalendarRanges},
-    mixins: [clickaway],
     model: {
       prop: 'dateRange',
       event: 'update',
@@ -232,7 +228,7 @@
           this.monthDate.getMonth(), 1)));
       },
       changeLeftMonth (value) {
-        let newDate = new Date(value.year, value.month, 1);
+        let newDate = new Date(value.year, value.month12, 1);
         this.changeMonth(newDate);
       },
       changeRightMonth (value) {
@@ -288,20 +284,6 @@
       clickedApply () {
         // this.open = false
         this.$emit('update', {startDate: this.start, endDate: this.end})
-      },
-      clickAway () {
-        // if (this.open) {
-        //   // reset start and end
-        //   let startDate = this.startDate;
-        //   let endDate = this.endDate;
-        //   if (this.dateRange !== null) {
-        //     startDate = this.dateRange.startDate;
-        //     endDate = this.dateRange.endDate;
-        //   }
-        //   this.start = new Date(startDate);
-        //   this.end = new Date(endDate);
-        //   this.open = false
-        // }
       },
       clickRange (value) {
         this.start = new Date(value[0])

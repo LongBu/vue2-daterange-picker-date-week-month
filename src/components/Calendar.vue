@@ -90,7 +90,7 @@
         const minExtMth =  moment(start).startOf('month');
         const maxExtMth =  moment(start).endOf('month');
         return {
-          off: date.month() !== this.month,
+          off: date.month() !== this.monthDate.getMonth(),
           weekend: date.isoWeekday() > 5,
           today: dt.setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0),
           // active: this.rangeMode === "day" && (dt.setHours(0, 0, 0, 0) == new Date(this.start).setHours(0, 0, 0, 0) || dt.setHours(0, 0, 0, 0) == new Date(this.end).setHours(0, 0, 0, 0)),
@@ -126,23 +126,25 @@
         set (value) {
           this.$emit('change-month', {
             month: this.month,
+            month12: this.month12,
             year: value,
           });
         }
       },
       month: {
         get () {
-          return this.monthDate.getMonth()
+          return this.months.indexOf(this.locale.monthNames[this.monthDate.getMonth()])
         },
         set (value) {
           this.$emit('change-month', {
             month: value,
+            month12: this.locale.monthNames.indexOf(this.months[value]),
             year: this.year,
           });
         }
       },
       calendar () {
-        const month = this.month
+        const month = this.monthDate.getMonth()
         const year = this.monthDate.getFullYear()
         //TODO:swap out this line
         // const daysInMonth = new Date(year, month, 0).getDate()
@@ -215,10 +217,9 @@
       years () {
         let values = []
         let count = 0
-        // for (let i = this.minDate.getFullYear(); i <= this.maxDate.getFullYear() && count <= 20; i++) {
-        for (let i = this.start.getFullYear(); count <= 20; i++) {
+        for (let i = this.minDate.getFullYear(); i <= this.maxDate.getFullYear(); i++) {
           count ++
-          values.push(i - 10)
+          values.push(i)
         }
         return values;
       }
@@ -233,9 +234,9 @@
     },
     watch:{
       months(theNew, thePrev){
-        const mthName = thePrev[this.month]
+        const mthName = theNew[this.month]
         const newIndex = theNew.indexOf(mthName)
-        if (newIndex){
+        if (newIndex > -1){
           this.month = newIndex
         }
         else{

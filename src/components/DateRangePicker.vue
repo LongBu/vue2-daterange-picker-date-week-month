@@ -1,6 +1,6 @@
 <template>
 
-            <div style="position: relative; display: inline-block;"
+            <div style="position: inherit; display: inline-block;"
                     class="daterangepickerInline dropdown-menu ltr"
                     :class="pickerStyles"
                     v-if="open"
